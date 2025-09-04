@@ -2,7 +2,15 @@ import { Card } from '../common/Card';
 import { FiActivity, FiDroplet } from 'react-icons/fi';
 import { healthData } from '../../data/mockData';
 
-const ProgressBar = ({ value, max, color, label, unit = '' }) => {
+interface ProgressBarProps {
+  value: number;
+  max: number;
+  color: string;
+  label: string;
+  unit?: string;
+}
+
+const ProgressBar: React.FC<ProgressBarProps> = ({ value, max, color, label, unit = '' }) => {
   const percentage = Math.min(100, Math.max(0, (value / max) * 100));
   
   return (

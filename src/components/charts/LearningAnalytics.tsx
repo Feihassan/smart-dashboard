@@ -1,9 +1,16 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, TooltipProps } from 'recharts';
 import { Card } from '../common/Card';
 import { FiBookOpen } from 'react-icons/fi';
 import { learningData } from '../../data/mockData';
+import { ValueType, NameType } from 'recharts/types/component/DefaultTooltipContent';
 
-const CustomTooltip = ({ active, payload, label }) => {
+interface CustomTooltipProps extends TooltipProps<ValueType, NameType> {
+  active?: boolean;
+  payload?: any[];
+  label?: string;
+}
+
+const CustomTooltip: React.FC<CustomTooltipProps> = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-white dark:bg-gray-800 p-3 rounded-lg shadow-lg border border-gray-100 dark:border-gray-700">
@@ -43,7 +50,13 @@ export const LearningAnalytics = () => {
               tickLine={false}
               tick={{ fill: '#6B7280' }}
             />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip content={<CustomTooltip />} contentStyle={{
+              backgroundColor: 'white',
+              border: '1px solid #e5e7eb',
+              borderRadius: '0.5rem',
+              padding: '0.75rem',
+              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
+            }} />
             <Bar 
               dataKey="hours" 
               fill="#8B5CF6"
